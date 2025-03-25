@@ -80,15 +80,11 @@ struct ContentView: View {
     
     var body: some View {
         ZStack{
-            
-            
-            
-
             ZStack(){
                     Rectangle()
                     .frame(width: 230, height: 70, alignment: .top)
                         .cornerRadius(20)
-                        .foregroundColor(.brown)
+                        .foregroundColor(.yellow)
                     
                     Picker(selection: $selectLocation, label: Text("Escolha a cidade")) {
                                 ForEach(0..<locais.count, id: \.self) {
@@ -126,49 +122,57 @@ struct ContentView: View {
                 
                 
             }.sheet(isPresented: $ativo){
-                ZStack(alignment: .top){
-                    Color.yellow.edgesIgnoringSafeArea(.all)
-                    VStack(){
-                        AsyncImage(url: URL(string: localSelected.foto)){ image in image
-                                .resizable()
-                                .frame(width: 200, height: 150)
-                                .aspectRatio(contentMode: .fill)
-                                .padding([.top], 30)
-                        } placeholder: {
-                            Image(systemName: "photo.fill")
-                                .resizable()
-                                .foregroundColor(.white)
-                                .frame(width: 200, height: 150)
-                                .aspectRatio(contentMode: .fill)
-                                .padding([.top], 30)
-                        }
-                        
-                        VStack{
-                            Text(localSelected.nome)
-                                .padding(40)
-                                .foregroundColor(.brown)
-                        }
-                        
-                        ZStack{
-                            
-                            Rectangle()
-                                .frame(width: 280, height: 400)
-                                .foregroundColor(.brown)
-                            
-                            Text(localSelected.descricao)
-                                .frame(width: 250, height: 380)
-                                .multilineTextAlignment(.center)
-                        }
-                    }
-                    
-                    
-                }
+                telaNova(selec: $localSelected)
             }
         
         
     }
 }
 
+struct telaNova: View {
+    
+    @Binding var selec: localizacao
+    
+    var body: some View {
+        ZStack(alignment: .top){
+            Color.yellow.edgesIgnoringSafeArea(.all)
+            VStack(){
+                AsyncImage(url: URL(string: selec.foto)){ image in image
+                        .resizable()
+                        .frame(width: 200, height: 150)
+                        .aspectRatio(contentMode: .fill)
+                        .padding([.top], 30)
+                } placeholder: {
+                    Image(systemName: "photo.fill")
+                        .resizable()
+                        .foregroundColor(.white)
+                        .frame(width: 200, height: 150)
+                        .aspectRatio(contentMode: .fill)
+                        .padding([.top], 30)
+                }
+                
+                VStack{
+                    Text(selec.nome)
+                        .padding(40)
+                        .foregroundColor(.brown)
+                }
+                
+                ZStack{
+                    
+                    Rectangle()
+                        .frame(width: 280, height: 400)
+                        .foregroundColor(.brown)
+                    
+                    Text(selec.descricao)
+                        .frame(width: 250, height: 380)
+                        .multilineTextAlignment(.center)
+                }
+            }
+            
+            
+        }
+    }
+}
 
 #Preview {
     ContentView()
