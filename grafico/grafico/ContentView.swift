@@ -117,7 +117,7 @@ struct ContentView: View {
             GradientAreaChartExampleView()
             
             ScrollView {
-                ForEach(vm.bpms) { batida in
+                ForEach(vm.bpms.sorted(by: { ($0.data ?? 0) > ($1.data ?? 0) })) { batida in
                     let epochTime = TimeInterval(batida.data!) / 1000
                     let date = Date(timeIntervalSince1970: epochTime)
                     
